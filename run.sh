@@ -11,7 +11,7 @@ run_generator)
     ;;
 
 create_local_data)
-    python generate.py
+    python generate.py local_data
     ;;
 
 build_reporter)
@@ -31,15 +31,19 @@ clear_data)
     ;;
 
 inside_generator)
-    docker run --rm -it -v $(pwd)/data:/data generator sh
+    docker run --rm -v $(pwd)/data:/data generator ls -la /data
     ;;
 
 inside_reporter)
-    docker run --rm -it -v $(pwd)/data:/data reporter sh
+    docker run --rm -v $(pwd)/data:/data reporter ls -la /data
     ;;
 
 report_server)
-    docker run --rm -p 8080:80 -v $(pwd)/data:/data server
+    docker run -d --name server-container -p 8080:80 -v $(pwd)/data:/data server
+    ;;
+
+stop_server)
+    docker stop server-container && docker rm server-container
     ;;
 
 *)
