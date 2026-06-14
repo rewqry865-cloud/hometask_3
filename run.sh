@@ -44,6 +44,7 @@ report_server)
 
 stop_server)
     docker stop server-container && docker rm server-container
+    echo "Server stopped"
     ;;
 
 *)
